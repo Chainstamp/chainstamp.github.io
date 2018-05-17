@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+      <!-- analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114451971-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-114451971-1');
+      </script>
+
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <title>ChainStamp</title>
+      <meta name="description" content="The Blockchain Timestamp Solution - Create an unforgeable proof of existence timestamp for any digital file with Chainstamp">
+      <meta name="keywords" content="Chainstamp, Blockchain Timestamp, proof of existence timestamp, Chainstamp Timestamp, Chainstamp proof of existence">
+      <meta name="author" content="">
+
+      <link rel="icon" href="images/favicon.ico">
+
+      <!-- Bootstrap v4.0.0-alpha.6 core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom CSS styles-->
+      <link href="css/global.css" rel="stylesheet">
+
+      <!-- Fontss-->
+      <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+
+
+      <!-- VUE -->
+      <script src="js/vue2.5.16.min.js"></script>
+
+
+      <style type="text/css">
+        /* initial state */
+        #pricing{
+          display: none;
+        }
+
+        #payment-method {
+          display: none;
+        }
+
+        #status-area-pending {
+          display: none;
+        }
+
+        #status-area-success {
+          display: none;
+        }
+
+        #status-area-confirm {
+          display: none;
+        }
+
+        .section {
+          transform: scale(.9);
+        }
+
+      </style>
+
+  </head>
+
+  <body>
+
+    <header class="header jumbotron bg-dark-blue">
+      <nav class="container navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" href="index.html">
+          <img id="logo" src="images/logo.svg" alt="ChainStamp logo">
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarChainstamp" aria-controls="navbarChainstamp" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarChainstamp" style="">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">HOME</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/create.html">CREATE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/verify.html">VERIFY</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="openBeacon();">CONTACT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/faq.html">FAQ</a>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+    </header>
+
+<div class="container-fluid" id="create_top" style="background:#f4f4f4">
+    <section id="create-chainstamp" class="jumbotron">
+        <div class="container">
+
+          <h4>
+            CREATE A CHAINSTAMP PROOF
+          </h4>
+
+
+          <div class="create-chainstamp-main-row row">
+              <input type="file" id="fileInput" style="display:none" multiple />
+
+              <div id="dropfile-box" class="col-12 col-lg-7 row" ondrop="drag_drop(event)" ondragover="allowDrop(event);" onclick="singleInput();" ondragleave="clearDrop(event);">
+                <div class="col-12">
+                  <img id="dropfile-box-icon" src="images/icon-dropfile.svg" alt="icon">
+                  <div id="dropfile-box-txt" v-if="filesAdded==0">
+                    Drop your files here<br>
+                  (or click to browse and select)
+                  </div>
+                  <div v-cloak v-else id="dropfile-box-txt" >
+                    {{filesAdded}} Files
+                  </div>
+                </div>
+
+              </div>
+
+              <div id="files-box" class="col-12 col-lg-5">
+
+                    <div class="box-header"><span class="txt-number" v-cloak>{{fileNames.length}}</span> Files Added</div>
+                      <div class="dropfile-list" v-for="file of fileNames" v-cloak>       
+                        <div class="box-element">
+                            <img id="icon-contract" class="files-box-icon" src="images/icon-contract.svg" alt="icon cc"> {{file}}
+                        </div>
+                      </div>
+                    <!--
+                    <div class="box-element">
+                        <img id="icon-contract" class="files-box-icon" src="images/icon-contract.svg" alt="icon cc"> mycontract.doc
+                    </div>
+                    <div class="box-element">
+                      <img id="icon-image" class="files-box-icon" src="images/icon-image.svg" alt="icon cc"> twitter_post.png
+                    </div>
+                    <div class="box-element"></div>
+                    <div class="box-element"></div>
+                  -->
+              </div>
+
+              <div id="info-box" class="col-12">
+
+                <img id="icon-info" class="info-icon" src="images/icon-info.svg" alt="icon info">
+                <span>Get notified when your chainstamp is confirmed in the blockchain.</span>
+                <input v-model="emailToNotify" id="input-email" placeholder="Enter Email (optional)">
+              </div>
+
+
+            <button v-on:click="createSubmit1" id="dropfile-box-btn" type="button" class="btn-yellow btn-yellow-pricing btn btn-lg btn-block btn-outline-primary dark-blue dark-blue-border-color">Submit</button>
+
+
+        </div><!--row -->
+      </div><!--container-->
+    </section>
+
+            <!-- The Modal -->
+            <div class="modal fade" id="Modal-Create">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+
+                    <div class="modal-header-content">
+                      <img id="icon-bitcoin-small" class="icon-bitcoin-small" src="images/icon-bitcoin-small.svg" alt="icon bitcoin">
+                      <h4 class="modal-title">Pay with Bitcoin</h4>
+
+                    </div>
+
+                  </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body row">
+                    <div class="col-12 col-lg-5">
+                      <img v-if="openResponse" id="img-qrsample" class="img-qrsample" v-bind:src="imageQRSrc" alt="image qr code">
+                       <div v-if="openResponse" class="text-sm-center">
+                            <a v-bind:href="paymentBtcLink">{{openResponse.paymentAddress}}</a>
+                       </div>
+                    </div>
+                    <div class="col-12 col-lg-7">
+
+                        <div v-if="openResponse" class="txt-lg medium-gray"> 
+                          <p class="txt-number">Cost:<br>{{paymentBtc}} BTC<br> $ {{paymentUSD}} USD</p>
+                        </div>
+
+                        <div class="loading-square col-12 col-md-4 row">
+                          <div class="col-3 align-self-center" >
+                              <img src="images/ajax-loader.gif" alt="loader">
+                          </div>
+
+                          <div class="col-9">
+                            <p class="txt-medium light-gray">Waiting for payment</p>
+                            <span class="txt-tiny light-gray">Remaining Time <span id="modalCountdown" class="txt-number">---</span></span>
+                          </div>
+
+                        </div>
+
+
+                        <button type="button" class="btn btn-dark-blue-outline" data-dismiss="modal" onclick="doVerifyFail(null,true);">Cancel</button>
+                    </div>
+
+
+                  </div> <!--modal-body row-->
+
+
+
+                </div><!-- modal-content-->
+              </div><!--modal dialog -->
+            </div> <!-- the modal -->
+
+
+
+    <!--     PRICING     -->
+    <section id="pricing" class="jumbotron">
+      <div class="container">
+
+        <div class="breadcrumbs">
+          <a href="#" v-on:click.prevent="backToFileDrop">
+            <span class="breadcrumb-arrow"><</span> Back
+          </a>
+        </div>
+        <h4>
+          Pick Your Confirmation Time
+        </h4>
+        <div class="txt-lg">
+          Creating entries  in the blockchain requires a fee to the miners (and a small premium to us for this service). We give you some options based on desired confirmation time
+        </div>
+
+
+        <div class="card-deck mb-3 text-center">
+
+          <div class="mb-4 card card-basic box-shadow">
+            <div class="card-header">
+              <h2 class="dark-blue">Basic</h2>
+            </div>
+            <div class="card-body">
+
+              <h3 class="dark-blue txt-free">FREE</h3>
+              <div class="txt-medium">Submitted once a day</div>
+
+              <button v-on:click="basic" type="button" class="btn btn-lg btn-block btn-outline-primary dark-blue dark-blue-border-color">Choose Basic</button>
+             
+            </div>
+              (max 3 files)
+          </div>
+
+          <div class=" mb-4 card card-simple box-shadow">
+            <div class="card-header">
+              <h2 class="dark-blue">Simple</h2>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">$3</h1>
+              <div class="txt-medium">Confirms in 1-3 hours on average</div>
+              <button  v-on:click="simple" type="button" class="btn-yellow btn-yellow-pricing btn btn-lg btn-block btn-outline-primary dark-blue dark-blue-border-color">Choose Simple</button>
+            </div>
+            (max 10 files)
+          </div>
+
+          <div class="mb-4 card card-pro box-shadow">
+            <div class="card-header">
+              <h2 class="dark-blue">Pro</h2>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">$15</h1>
+              <div class="txt-medium">Confirms in 10 minutes on average</div>
+              <button  v-on:click="pro" type="button" class="btn btn-lg btn-block btn-outline-primary dark-blue dark-blue-border-color">Choose Pro</button>
+
+            </div>
+              (max 50 files)
+          </div>
+
+        </div>
+
+        <div class="txt-medium">
+          * Confirmation time is on average 10 minutes after submission, but will vary randomly based on mining activity
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+
+
+    <!--     PAYMENT     -->
+    <section id="payment-method" class="jumbotron">
+      <div class="container">
+
+        <div class="breadcrumbs">
+          <a href="index.html" v-on:click.prevent="backToPrcing">
+            <span class="breadcrumb-arrow"><</span> Back
+          </a>
+        </div>
+        <h4>
+          Pick Your Payment Method
+        </h4>
+
+        <div class="row">
+          <div class="col-12 col-md-2">
+          </div>
+
+          <a href="#" v-on:click.prevent="card" class="payment-method-box col-12 col-lg-3">
+            <img id="icon-cc" src="images/icon-cc.svg" alt="icon cc">
+            <div class="icon-cc-txt">
+              Payment with Visa,<br>
+              Mastercard, Etc.
+            </div>
+          </a>
+
+          <div class="col-12 col-md-2">
+          </div>
+
+          <a href="#" v-on:click.prevent="crypto" class="payment-method-box col-12 col-lg-3">
+            <img id="icon-sv" src="images/icon-btcblue.svg" alt="icon cc">
+            <div class="icon-sv-txt">
+              Payment with Bitcoin
+            </div>
+          </a>
+
+          <div class="col-12 col-2">
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+
+
+    <!--     PENDING     -->
+    <section id="status-area-pending" class="status-area jumbotron">
+      <div class="container">
+
+        <div class="col-12">
+            <img class="status-icon" src="images/icon-pending.svg" alt="icon">
+        </div>
+
+        <h2 class="dark-blue txt-bold">
+           Pending Blockchain Submission
+        </h2>
+
+        <div class="txt-lg">
+          Status: Pending, 0 Confirmations
+        </div>
+        <br><br>
+        <div class="status-data-rectangle">
+          Blockchain submission time: <br/><span class="txt-number">{{expected}}</span>
+        </div>
+        <br><br>
+        <h2 class="dark-blue text-bold">
+          You're all set
+        </h2>
+
+        <div v-if="emailToNotify" class="txt-medium lightest-gray info-1">
+            We will send a notification to <span class="link-dark-blue">{{emailToNotify}}</span> when confirmation is done.
+        </div>
+
+        <div class="txt-medium lightest-gray info-2">
+          Use this <a v-bind:href="verifyLink">Verify link</a> later to make sure your chainstamp proof has at least 1 confirmation. 
+        </div>
+
+
+      </div>
+    </section>
+
+
+    <!-- SUCCESS -->
+    <section id="status-area-success" class="status-area jumbotron">
+      <div class="container">
+
+        <div class="col-12">
+            <img class="status-icon" src="images/icon-sucess.svg" alt="icon">
+        </div>
+
+        <h2 class="dark-blue txt-bold">
+           Success! Submitted Transaction
+        </h2>
+
+        <div class="txt-lg">
+          Status: Submitted, 0 Confirmations
+        </div>
+        <br><br>
+
+        <div class="row">
+          <div class="status-data-chainstamp-id-title status-data-chainstamp-info col-12 col-lg-3">
+            Chainstamp ID
+          </div>
+          <div v-if="openResponse || verifyStatus" class="status-data-chainstamp-id-data status-data-chainstamp-info col-12 col-lg-9 wordwrap txt-number">
+            <a href="#" class="dark-blue" data-toggle="tooltip" title data-original-title="Use the transaction link below and search for this text on the page.">{{seedHash}}</a>
+          </div>
+          <div class="status-data-transaction-id-title status-data-chainstamp-info col-12 col-lg-3">
+            Transaction ID
+          </div>
+          <div v-if="openResponse || verifyStatus" class="status-data-chainstamp-id-data status-data-chainstamp-info col-12 col-lg-9 wordwrap txt-number">
+           <a target="new" class="dark-blue" v-bind:href="txLink">{{transactionId}}</a>
+          </div>
+        </div>
+
+        <br><br>
+
+        <h2 class="dark-blue tx-bold">Transaction Submitted to Network</h2>
+
+        <div v-if="emailToNotify" class="txt-medium lightest-gray info-1">
+            We will send a notification to <span class="link-dark-blue">{{emailToNotify}}</span> when confirmation is done.
+        </div>
+
+        <div class="txt-medium lightest-gray info-2">
+          Use this <a v-bind:href="verifyLink">Verify link</a> later to make sure your chainstamp proof has at least 1 confirmation. 
+        </div>
+
+        <a v-bind:href="proofLink"><button type="button" class="btn-blue btn btn-lg btn-block ">Download Proof File</button></a>
+
+
+        <div class="txt-medium lightest-gray">
+          <img class="question-icon" src="images/icon-question.svg" alt="icon"> <a href="#" class="link-underline-gray">How to use</a>
+        </div>
+
+
+      </div>
+    </section> <!-- END SUCCESS-->
+
+
+    <!-- CONFIRMED -->
+    <section id="status-area-confirm" class="status-area jumbotron">
+      <div class="container">
+
+        <div class="col-12">
+            <img class="status-icon" src="images/icon-verifiedblock.svg" alt="icon">
+        </div>
+
+        <h2 class="dark-blue txt-bold">
+          Confirmed: Your Chainstamp is in the Blockchain
+        </h2>
+
+        <div class="txt-lg">
+          Status: Confirmed, 1 Confirmation
+        </div>
+        <br><br>
+
+        <div class="row">
+          <div class="status-data-chainstamp-id-title status-data-chainstamp-info col-12 col-lg-3">
+            Chainstamp ID
+          </div>
+          <div  v-if="verifyStatus" class="status-data-chainstamp-id-data status-data-chainstamp-info col-12 col-lg-9 wordwrap txt-number">{{verifyStatus.seedHash}}</div>
+          <div class="status-data-transaction-id-title status-data-chainstamp-info col-12 col-lg-3">
+            Transaction ID
+          </div>
+          <div  v-if="verifyStatus" class="status-data-chainstamp-id-data status-data-chainstamp-info col-12 col-lg-9 wordwrap txt-number"><a class="dark-blue" v-bind:href="txLink">{{verifyStatus.txId}}</a></div>
+        </div>
+
+
+        <br><br>
+        <div class="txt-normal light-gray txt-lg">
+          <span class="dark-blue">Confirmed in block: <span class="txt-number">483738</span></span><br>
+          <span class="light-gray">Timestamp: <span class="txt-number">14:23:03</span> UTC on Nov <span class="txt-number">2nd, 2017</span></span>
+        </div>
+        <br>
+        <a v-bind:href="proofLink"><button type="button" class="btn-blue btn btn-lg btn-block ">Download Proof File</button></a>
+
+
+        <div class="txt-medium lightest-gray">
+          <img class="question-icon" src="images/icon-question.svg" alt="icon"> <a href="#" class="link-underline-gray">How to use</a>
+        </div>
+
+
+      </div>
+    </section> <!--END CONFIRMED-->
+
+    <section>
+      <!-- Progress Modal -->
+        <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="progressModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content progress-content">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-2">
+                   <img src="images/progress2.gif">
+                  </div>
+                  <div class="col-10  align-self-center">
+                   <span class="progress-info">{{progressComment}}</span>
+                  </div>
+                </div>
+              </div>
+             
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Modal ERROR-->
+    <section>
+      <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header modal-header-danger">
+                      <h3>{{errorTitle}}</h3>
+                  </div>
+                  <div class="modal-body">
+                      {{errorMessage}}
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  </div>
+              </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </section>
+    <!-- Modal -->
+
+</div> <!--container fluid -->
+
+
+  <!-- REMEMBER -->
+  <section id="remember" class="jumbotron">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-12">
+            <h1 class="text-center">Remember</h1>
+        </div>
+
+        <div class="col-12 col-lg-6 box-area-container">
+          <div class="box-area">
+            <h2>Backup and Protect your files</h2>
+            <div class="white">
+              In order to verify your chainstamp’s at later date (like 10 years from now), keep a perfect copy of your files.
+            </div>
+            <div class="light-gray">
+              Caution: programs like Microsoft word will alter your files if you just open them, so keep a separate copy or use .pdf format
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6 box-area-container">
+          <div class="box-area">
+            <h2>Files are not sent to us</h2>
+            <div class="white">
+              This web page processes your files into unique "fingerprints" (digital hashes) without sending their contents to our server.
+            </div>
+            <div class="white">
+              Only this digital fingerprint is shared with us and can be seen by others.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 white text-center bottom-text">
+          Currently submission requires bitcoin payment, we will add free and other options available soon
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- HOW TO -->
+  <section id="how-to-chain" class="container">
+
+    <div class="row">
+        <div class="col-12">
+          <h4>
+            HOW TO CHAINSTAMP YOUR FILES
+          </h4>
+        </div>
+
+
+        <div class="col-12 col-lg-1">
+          <img id="how-to-number-1" class="how-to-numbers" src="images/howto-number-1.svg" alt="How to step 1">
+        </div>
+        <div class="col-12 col-lg-5">
+          <h2 class="medium-gray">Backup your files</h2>
+          <div class="txt-medium">
+          In order to verify a chainstamp at a later date, you need a file that is identical to was submitted originally.
+          <br><br>
+          Create a folder just for chainstamp files, consider write protection so not a single byte can change. Consider storing it in the cloud.
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 how-to-img-big">
+            <img id="how-to-img-1" class="how-to-img-big" src="images/howto-image-1.png" alt="How to image 1">
+        </div>
+
+        <div class="divider col-12"></div>
+
+        <div class="col-12 col-lg-1">
+          <img id="how-to-number-2" class="how-to-numbers" src="images/howto-number-2.svg" alt="How to step 2">
+        </div>
+        <div class="col-12 col-lg-5">
+          <h2 class="medium-gray">Select your files</h2>
+          <div class="txt-medium">
+            Using the drag drop area above or by clicking on that, you can select your files which will be submitted for a chainstamp.
+            <br><br>
+            When you are ready click submit button.
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 how-to-img-big">
+            <img id="how-to-img-2" class="how-to-img-big" src="images/howto-image-2.png" alt="How to image 2">
+        </div>
+
+
+        <div class="divider col-12"></div>
+
+        <div class="col-12 col-lg-1">
+          <img id="how-to-number-3" class="how-to-numbers" src="images/howto-number-3.svg" alt="How to step 3">
+        </div>
+        <div class="col-12 col-lg-5">
+          <h2 class="medium-gray">Payment</h2>
+          <div class="txt-medium">
+            Chainstamp proofs have 3 payment levels.
+            <ul>
+              <li>Basic: Blockchain transaction submission can take 1 day.</li>
+              <li>Simple: Blockchain transactoin submission in a few hours</li>
+              <li>Pro: Immediate submission of your transaction to the network. Confirmation on avg. in 10 minutes</li>
+            </ul>
+            You can pay with Credit Card or Cryptocurrencies
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 how-to-img-small">
+            <img id="how-to-img-3" class="how-to-img-small" src="images/howto-image-3v2.png" alt="How to image 3">
+        </div>
+
+
+        <div class="divider col-12"></div>
+
+        <div class="col-12 col-lg-1">
+          <img id="how-to-number-4" class="how-to-numbers" src="images/howto-number-4.svg" alt="How to step 4">
+        </div>
+        <div class="col-12 col-lg-5">
+          <h2 class="medium-gray">Blockchain Transaction & Confirmations</h2>
+          <div class="txt-medium">
+            We submit a transaction to the blockchain that contains the “fingerprint” of your digital files.
+            <br><br>
+            A confirmation indicates when your transaction is included in a block (the “block” in “blockchain”).
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 how-to-img-small">
+            <img id="how-to-img-4" class="how-to-img-small" src="images/howto-image-4.png" alt="How to image 4">
+        </div>
+
+
+        <div class="divider col-12"></div>
+
+
+        <div class="col-12 col-lg-1">
+          <img id="how-to-number-5" class="how-to-numbers" src="images/howto-number-5.svg" alt="How to step 5">
+        </div>
+        <div class="col-12 col-lg-5">
+          <h2 class="medium-gray">Download Your Proof File</h2>
+          <div class="txt-medium">
+            <p>Download your proof file (Submitted or Confirmed status only).</p>
+            The chainstamp proof file can be used to locate and verify your timestamped entries in the blockchain, independently of our company. It ensures you can always verify your data forever.
+
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 how-to-img-small">
+            <img id="how-to-img-5" class="how-to-img-small" src="images/howto-image-5.png" alt="How to image 5">
+        </div>
+
+
+
+    </div>
+
+  </section> <!--END HOW TO-->
+
+
+    <footer class="footer jumbotron bg-dark-grey">
+      <div class="container bg-dark-grey">
+        <div class="row">
+          <div class="col-12 text-center">
+              <a href="#"><img id="logo-footer" src="images/logo-footer.svg" alt="ChainStamp logo"></a>
+          </div>
+          <div class="col-12 col-md-2 col-lg-3 col-xl-4">
+          </div>
+
+          <div id="area-footer-links-one" class="col-12 col-md-8 col-lg-6 col-xl-4 cointainer">
+            <div class="row">
+              <div class="col-12 col-md-6 text-center">
+                <a class="link-gray" href="create.html">CREATE A CHAINSTAMP</a>
+              </div>
+              <div class="col-12 col-md-6 text-center">
+                <a class="link-gray" href="verify.html">VERIFY A CHAINSTAMP</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-2 col-lg-3 col-xl-4">
+          </div>
+
+          <div id="area-footer-links-two" class="col-12 text-center link-dark-gray">
+              <a href="terms.html" class="link-dark-gray">TERMS</a>      |     <a href="privacy.html" class="link-dark-gray">PRIVACY</a>      |     <a href="faq.html" class="link-dark-gray">FAQ</a>      |      <a href="#"  onclick="openBeacon();" class="link-dark-gray">CONTACT</a>
+          </div>
+
+
+          <div id="area-copyright" class="col-12 text-center link-dark-gray">
+            © COPYRIGHT <span style="font-family:arial;">2018</span> CHAINSTAMP LLC
+            </div>
+
+        </div>
+      </div>
+    </footer>
+
+
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <!-- Bootstrap v4.0.0-alpha.6 core JS, Placed at the end of the document so the pages load faster -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- functional code-->
+   
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+   <!-- <script src="js/bitpay.js"></script> -->
+    <script src="https://bitpay.com/bitpay.min.js"></script>
+    <script src="js/sha256.js"></script>
+    <script src="js/shahash.js"></script>
+    <script src="js/fileOps.js"></script>
+    <script src="js/stampApi.js"></script>
+    <script src="js/create.js"></script>
+    <script src="js/helpScout.js"></script>
+  <script>
+    /* file drop setup */
+    //requires fileOps.js
+    document.getElementById('fileInput').onclick = function (e) {  };
+     document.querySelector('input').addEventListener('change', function(){
+      console.log("change");
+      //fileStack=this.files;
+      processFileList(this.files);
+    }, false);
+
+  </script>
+  </body>
+
+</html>

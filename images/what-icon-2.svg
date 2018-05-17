@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="2048 -6947 144 144">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: none;
+      }
+
+      .cls-1 {
+        stroke: #043275;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #043275;
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Symbol_10_1" data-name="Symbol 10 – 1" transform="translate(1171 -7733)">
+    <g id="Ellipse_2" data-name="Ellipse 2" class="cls-1" transform="translate(877 786)">
+      <circle class="cls-3" cx="72" cy="72" r="72"/>
+      <circle class="cls-4" cx="72" cy="72" r="71"/>
+    </g>
+    <path id="PerfectFor" class="cls-2" d="M68.4,6.817A6.814,6.814,0,0,0,61.594,0H6.811A6.814,6.814,0,0,0,0,6.817V81.5A6.814,6.814,0,0,0,6.811,88.32H61.594A6.814,6.814,0,0,0,68.4,81.5ZM14.434,25.57l-2.143-2.28L9.38,26.031,14.62,31.6l7.46-8.99L19.006,20.06Zm0,15.875-2.143-2.28L9.38,41.905l5.24,5.574,7.46-8.99-3.074-2.556Zm0,15.875-2.143-2.28L9.38,57.78l5.24,5.574,7.46-8.99-3.074-2.556ZM27.853,23.667H58.014v4.185H27.853Zm0,16.6H58.014v4.185H27.853Zm0,16.6H58.014v4.185H27.853Z" transform="translate(915 814)"/>
+  </g>
+</svg>

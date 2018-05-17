@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+      <!-- analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114451971-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-114451971-1');
+      </script>
+
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <title>ChainStamp</title>
+      <meta name="description" content="The Blockchain Timestamp Solution - Create an unforgeable proof of existence timestamp for any digital file with Chainstamp">
+      <meta name="keywords" content="Chainstamp, Blockchain Timestamp, proof of existence timestamp, Chainstamp Timestamp, Chainstamp proof of existence">
+      <meta name="author" content="">
+
+      <link rel="icon" href="images/favicon.ico">
+
+      <!-- Bootstrap v4.0.0-alpha.6 core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom CSS styles-->
+      <link href="css/global.css" rel="stylesheet">
+
+      <!-- Fontss-->
+      <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+
+
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+      <script type="text/javascript">
+        
+        $(document).ready(showHide);
+
+        function showHide() {
+          if(location.hash != null && location.hash != ""){
+                $('.collapse').removeClass('in');
+                $(location.hash + '.collapse').collapse('show');
+            }
+        }
+
+      </script>
+
+  </head>
+
+  <body>
+
+    <header class="header jumbotron bg-dark-blue">
+      <nav class="container navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" href="index.html">
+          <img id="logo" src="images/logo.svg" alt="ChainStamp logo">
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarChainstamp" aria-controls="navbarChainstamp" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarChainstamp" style="">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/create.html">CREATE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/verify.html">VERIFY</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="openBeacon();">CONTACT</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/faq.html">FAQ</a>
+
+          </ul>
+
+        </div>
+      </nav>
+    </header>
+
+
+    <section id="faq_body" style="margin-bottom: 100px">
+      <div class="container" style="margin-top: 50px">
+        <div class="row">
+          <div class="col">
+            <h2 class="dark-blue">FAQ</h2>
+          </div>
+        </div><!--row-->
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link txt-lg dark-blue faq" data-toggle="collapse" data-target="#whatIsChainstamp" aria-expanded="true" aria-controls="whatIsChainstamp">
+                    What is Chainstamp?
+                  </button>
+              </h5>
+            </div>
+
+            <div id="whatIsChainstamp" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body txt-medium">
+                Chainstamp is a blockchain technology company helping businesses and individuals actually put the hype of this new technology to work for them. Our first product, is the "Chainstamp Proof" which provides a proof of existence timestamp for any digital file. In the future we will be launching other products and services, see our roadmap for more info.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link txt-lg dark-blue collapsed faq" data-toggle="collapse" data-target="#whatIsProof" aria-expanded="false" aria-controls="whatIsProof">
+                  What is a Chainstamp Proof?
+                </button>
+              </h5>
+            </div>
+            <div id="whatIsProof" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body txt-medium">
+                <p>A Chainstamp Proof is a way to show a digital file existed at a certain point in time. A timestamp. We submit transactions to the bitcoin blockchain
+                and a part of each transaction contains data derived from files submitted on our website. This blockchain data then provides an unalterable anchor point in time,
+              and because the blockchain can never be changed, the proof exits forever and is easy to verify.</p>
+              <p>The process of verifiying a Chainstamp proof includes 1) an original file 2) our website or a "proof file" that you've downloaded from us
+              and 3) the bitcoin blockchain (which can be viewed on various websites or can be downloaded to your own system).</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link txt-lg dark-blue collapsed faq" data-toggle="collapse" data-target="#whichChain" aria-expanded="false" aria-controls="whichChain">
+                  Which Blockchain is used?
+                </button>
+              </h5>
+            </div>
+            <div id="whichChain" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body txt-medium">
+                We use the bitcoin blockchain. Currently this is the most secure blockchain and it is verified in real time by hundreds of thousands of machines all over the world. In the future, we hope to give our users options to utilize multiple blockchains as well.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading-howCanI">
+              <h5 class="mb-0">
+                <button class="btn btn-link txt-lg dark-blue collapsed faq" data-toggle="collapse" data-target="#howCanI" aria-expanded="false" aria-controls="howCanI">
+                  What can I do with this site?
+                </button>
+              </h5>
+            </div>
+
+            <div id="howCanI" class="collapse" aria-labelledby="heading-howCanI" data-parent="#accordion">
+              <div class="card-body txt-medium">
+                With any digital file (photos, documents, recordings, anything on your computer) you can create a timestamp for it (aka a "Chainstamp Proof"). You can drag/drop it into our <a href="create.html">Create</a> page and the digital fingerprint of your file will be submitted as part of a transaction on the bitcoin network, creating a verifyble timestamp for your files.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingFour">
+              <h5 class="mb-0">
+                <button class="btn btn-link txt-lg dark-blue collapsed faq" data-toggle="collapse" data-target="#howCanCompany" aria-expanded="true" aria-controls="howCanCompany">
+                  How can my company use Chainstamp or Chainstamp Proofs?
+                </button>
+              </h5>
+            </div>
+
+            <div id="howCanCompany" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+              <div class="card-body txt-medium">
+                Definitely <a href="mailto:contact@chainstamp.io">get in touch with us</a> to discuss specific integrations. Coming soon we will be launching a public API for any business to build into their systems. Essentially any time your business process creates or changes a digital file is an opportunity to create a Chainstamp proof for it.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingFive">
+              <h5 class="mb-0">
+                <button class="btn btn-link txt-lg dark-blue collapsed faq" data-toggle="collapse" data-target="#proofFile" aria-expanded="false" aria-controls="proofFile">
+                  How is the "proof file" used?
+                </button>
+              </h5>
+            </div>
+            <div id="proofFile" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+              <div class="card-body txt-medium">
+                <p>A <u>proof file</u> can be downloaded once a chainstamp proof is in a submitted or confirmed state. It let's you prove the existance of your original files
+                using the blockchain and can be used even if our service is no longer around.</p>
+                <p>Warning this is pretty technical</p>
+                <ul>Verify with a Proof File
+                <li>Get the <a href="http://google.com/#q=how+to+find+a+sha256+hash+of+a+file">sha256 hash</a> of one of your original files that was submitted for a Chainstamp proof</li>
+                <li>Now get the sha256 hash of your proof file</li>
+                <li>Verify that the hash of your original file appears as text inside your proof file (open with a text editor and search for it)</li>
+                <li>Now verify that the hash of your proof file (also known as your Chainstamp ID) appears in the Bitcoin blockchain. You can use a tool like <a href="https://www.smartbit.com.au/"> this one</a> to search for the proof file hash, or if you have your transaction ID from an email we sent you can use that with any <a href="blockchain.info">Block explorer</a> to lookup the transaction itself and search for the proof file hash inside the transaction (it is in the "OP_RETURN" section of the transaction).</li>
+                <li>Check to make sure the transaction which contains your Chainstamp ID (proof file hash) is confirmed in a block and locate the timestamp of the Block containing this transaction.</li>
+              </ul>
+              Summary:
+              <p>Your original file is hashed and that hash is put into the proof file. The proof file is hashed and put into the bitcoin blockchain as part of a transaction that gets put inside a block. Finding the timestamp of the block that contains the transaction (which contains your proof file hash) proves the existence of your original file (whose hash is inside the proof file) and provides a verifable timestamp.</p>
+                <br/>
+                <p> The above steps are technical and are meant only to be used when our service is not available or if you want independent verification.</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingSix">
+              <h5 class="mb-0">
+                <button class="btn btn-link txt-lg dark-blue collapsed faq" data-toggle="collapse" data-target="#whatIsChainstampId" aria-expanded="false" aria-controls="whatIsChainstampId">
+                  What is a "Chainstamp Id" or a "Chainstamp Proof Id"
+                </button>
+              </h5>
+            </div>
+            <div id="whatIsChainstampId" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+              <div class="card-body txt-medium">
+                The Chainstamp Id is the data that was put into a bitcoin transaction as what is called an "op_return" value. It can be seen using a block explorer if you view your transaction there (find your transaction Id from email or from verify page.). The Chainstamp ID is a "hash" (sha256 hash) of your <a href="faq.html#proofFile" onclick="showHide();">proof file</a>. If the hash of one of your original files (that was submitted on the <a href="create.html">create page</a>) exists inside your proof file, and your Chainstamp ID is in the blockchain, then you now have a Chainstamp Proof or a blockchain verifiable timestamp of your data.
+              </div>
+            </div>
+          </div>
+        </div><!--accordion-->
+      </div><!--container-->
+    </section>
+
+
+    <footer class="footer jumbotron bg-dark-grey">
+      <div class="container bg-dark-grey">
+        <div class="row">
+          <div class="col-12 text-center">
+              <a href="#"><img id="logo-footer" src="images/logo-footer.svg" alt="ChainStamp logo"></a>
+          </div>
+          <div class="col-12 col-md-2 col-lg-3 col-xl-4">
+          </div>
+
+          <div id="area-footer-links-one" class="col-12 col-md-8 col-lg-6 col-xl-4 cointainer">
+            <div class="row">
+              <div class="col-12 col-md-6 text-center">
+                <a class="link-gray" href="create.html">CREATE A CHAINSTAMP</a>
+              </div>
+              <div class="col-12 col-md-6 text-center">
+                <a class="link-gray" href="verify.html">VERIFY A CHAINSTAMP</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-2 col-lg-3 col-xl-4">
+          </div>
+
+          <div id="area-footer-links-two" class="col-12 text-center link-dark-gray">
+              <a href="terms.html" class="link-dark-gray">TERMS</a>      |     <a href="privacy.html" class="link-dark-gray">PRIVACY</a>      |     <a href="faq.html" class="link-dark-gray">FAQ</a>      |      <a href="#"  onclick="openBeacon();" class="link-dark-gray">CONTACT</a>
+          </div>
+
+
+          <div id="area-copyright" class="col-12 text-center link-dark-gray">
+            © COPYRIGHT <span style="font-family:arial;">2018</span> CHAINSTAMP LLC
+            </div>
+
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap v4.0.0-alpha.6 core JS, Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/helpScout.js"></script>
+</script>
+  </body>
+
+</html>
