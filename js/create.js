@@ -155,8 +155,8 @@
 		  txLink: function() {
 		  	if(this.verifyStatus && this.verifyStatus.txId) {
 		  		return chainstamp.explorerTx+"/"+this.verifyStatus.txId;
-		  	} else if(this.openResponse && this.openResponse.txId) {
-		  		return chainstamp.explorerTx+"/"+this.openResponse.txId;
+		  	} else if(this.openResponse && this.openResponse.transactionId) {
+		  		return chainstamp.explorerTx+"/"+this.openResponse.transactionId;
 		  	} else {
 		  		return "";
 		  	}
