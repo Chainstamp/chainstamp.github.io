@@ -7,7 +7,7 @@ function ChainstampError(title,message) {
 function Chainstamp() {
 	var self = this;
 
-	var dev=true;
+	var dev=false;
 	this.cryptoMethod="SELF";  //SELF or BITPAY
 
 	if(this.cryptoMethod=="SELF") {
