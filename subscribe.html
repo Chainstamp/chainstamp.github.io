@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+      <!-- analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114451971-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-114451971-1');
+      </script>
+
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <title>ChainStamp</title>
+      <meta name="description" content="The Blockchain Timestamp Solution - Create an unforgeable proof of existence timestamp for any digital file with Chainstamp">
+      <meta name="keywords" content="Chainstamp, Blockchain Timestamp, proof of existence timestamp, Chainstamp Timestamp, Chainstamp proof of existence">
+      <meta name="author" content="">
+
+      <link rel="icon" href="images/favicon.ico">
+
+      <!-- Bootstrap v4.0.0-alpha.6 core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom CSS styles-->
+      <link href="css/global.css" rel="stylesheet">
+
+      <!-- Fontss-->
+      <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+
+
+      <!-- VUE -->
+      <script src="js/vue2.5.16.min.js"></script>
+
+
+      <style type="text/css">
+        /* initial state */
+        #pricing{
+          display: visible;
+        }
+
+        #payment-method {
+          display: none;
+        }
+
+        #status-area-pending {
+          display: none;
+        }
+
+        #status-area-success {
+          display: none;
+        }
+
+        #status-area-confirm {
+          display: none;
+        }
+
+        .section {
+          transform: scale(.9);
+        }
+
+      </style>
+
+  </head>
+
+  <body>
+
+    <header class="header jumbotron bg-dark-blue">
+      <nav class="container navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" href="index.html">
+          <img id="logo" src="images/logo.svg" alt="ChainStamp logo">
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarChainstamp" aria-controls="navbarChainstamp" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarChainstamp" style="">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">HOME</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/create.html">CREATE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/verify.html">VERIFY</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="openBeacon();">CONTACT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/faq.html">FAQ</a>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+    </header>
+
+<div class="container-fluid" id="create_top" style="background:#f4f4f4">
+   
+
+
+
+    <!--     PRICING     -->
+    <section id="pricing" class="jumbotron">
+      <div class="container">
+
+        <div class="breadcrumbs">
+          <a href="#" v-on:click.prevent="backToFileDrop">
+            <span class="breadcrumb-arrow"><</span> Back
+          </a>
+        </div>
+        <h4>
+          Subscribe to API
+        </h4>
+        <div class="txt-lg">
+          Lorem Ipsum
+        </div>
+
+
+        <div class="card-deck mb-3 text-center">
+
+          
+
+          <div class=" mb-4 card card-simple box-shadow">
+            <div class="card-header">
+              <h2 class="dark-blue">API Usage Rates</h2>
+            </div>
+            <div class="card-body">
+                <p class="txt-large">$3 per Chainstamp Proof</p>
+              <div class="txt-medium">Confirms in 10min on average</div>
+              <button  id="customButton" type="button" class="btn-yellow btn-yellow-pricing btn btn-lg btn-block btn-outline-primary dark-blue dark-blue-border-color">Subscribe to Plan</button>
+            </div>
+            (max 50 files per Chainstamp Proof)
+          </div>
+
+
+
+        </div>
+
+        <div class="txt-medium">
+              * Lorem Ipsum blah
+          </div>
+
+      </div>
+    </section>
+
+
+
+
+
+
+    
+
+    <section>
+      <!-- Progress Modal -->
+        <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="progressModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content progress-content">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-2">
+                   <img src="images/progress2.gif">
+                  </div>
+                  <div class="col-10  align-self-center">
+                   <span class="progress-info">{{progressComment}}</span>
+                  </div>
+                </div>
+              </div>
+             
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Modal ERROR-->
+    <section>
+      <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header modal-header-danger">
+                      <h3>{{errorTitle}}</h3>
+                  </div>
+                  <div class="modal-body">
+                      {{errorMessage}}
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  </div>
+              </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </section>
+    <!-- Modal -->
+
+</div> <!--container fluid -->
+
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <!-- Bootstrap v4.0.0-alpha.6 core JS, Placed at the end of the document so the pages load faster -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- functional code-->
+   
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+   <!-- <script src="js/bitpay.js"></script> -->
+    <script src="https://bitpay.com/bitpay.min.js"></script>
+    <script src="js/sha256.js"></script>
+    <script src="js/shahash.js"></script>
+    <script src="js/fileOps.js"></script>
+    <script src="js/stampApi.js"></script>
+    <script src="js/helpScout.js"></script>
+
+
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+
+
+<script>
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_0zVGSzh3lvUoLMwKSZkUvpIx',
+        image: 'https://chainstamp.io/images/favicon-96x96.png',
+        locale: 'auto',
+        token: function(token) {
+          // You can access the token ID with `token.id`.
+          // Get the token ID to your server-side code for use.
+          console.log(token);
+          console.log(token.email);
+        }
+      });
+
+      function checkout(e) {
+
+      }
+
+      document.getElementById('customButton').addEventListener('click', function(e) {
+        // Open Checkout with further options:
+        handler.open({
+          name: 'Chainstamp',
+          description: 'API Subscription',
+          panelLabel: 'Subscribe'
+        });
+        e.preventDefault();
+      });
+
+      // Close Checkout on page navigation:
+      window.addEventListener('popstate', function() {
+        handler.close();
+      });
+</script>
+
+
+</body>
+</html>
