@@ -23,7 +23,8 @@
 	    showError:false,
 	    elapsedStart:null,
 	    elapsedNow:null,
-	    elapsedRun:false
+		elapsedRun:false,
+		plans:null
 
 	  },
 
@@ -73,7 +74,38 @@
 	  		console.log("crypto selected");
 	  		app.paymentType="CRYPTO";
 	  		doStampCrypto(app.paymentLevel);
-	  	}
+		  },
+
+		getPlanName(plan) {
+			return plan.name.charAt(0).toUpperCase() + plan.name.slice(1).toLowerCase();
+		},
+
+		getPlanTime(plan) {
+			var secs=plan.delay/1000;
+			secs=secs*1.5;  //because on avg you'll get middle. Then have to wait for end of next full interal.
+			if(secs>86000) {
+				return "Submitted once a day."; //assumes we won't go to a greater delay.
+			} else if(secs>3600) {
+				return "Confirms in "+ round(secs/3600,0)+" hours on average."
+			} else if(secs>0) {
+				return "Confirms in "+ (round(secs/60,0)+10)+" minutes on average." //70min is allowed.
+			} else {
+				return "Confirms in 10 minutes on average";
+			}
+		},
+
+		getPlanPrice(plan) {
+			var price=round(plan.price/100,2);
+			if((price*100)%100 ==0 ) {
+				price=round(price,0);
+			}
+			if(price==0) {
+				return "FREE";
+			} else {
+				return "$"+price;
+			}
+
+		}
 
 	  },
 	  	computed: {
@@ -248,7 +280,9 @@
 		  	vm.$on("newFiles", length =>{ 
 		  		console.log("filesFound received "+length);
 		  		vm.filesAdded=length;
-		  	});
+			  });
+			
+			getPlans();
 		  }
 	});
 
@@ -519,6 +553,17 @@
 		} else {
 			$("#payment-method").hide("fast");$("#status-area-pending").show();$(window).scrollTop(0);
 		}
+	}
+
+	function getPlans() {
+		chainstamp.getPlans(function(data,error) {
+			if(data) {
+				app.plans=data.plans;
+			}
+			if(error) {
+				showError("Error retrieving plan information");
+			}
+		});
 	}
 
 
