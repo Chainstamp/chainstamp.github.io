@@ -18,8 +18,8 @@ function Chainstamp() {
 
 	if(dev) {
 		this.debug=true;
-		//this.host="https://devapi.chainstamp.io:8443";
-		this.host="https://localhost:8443";
+		this.host="https://devapi.chainstamp.io:8443";
+		//this.host="https://localhost:8443";
 		this.explorerTx="https://testnet.blockchain.info/tx";
 		this.explorerBlock="https://testnet.blockchain.info/block";
 		this.testMode=true;

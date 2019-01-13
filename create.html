@@ -79,7 +79,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-collapse collapse" id="navbarChainstamp" style="">
+        <div class="navbar-collapse collapse" id="navbarChainstamp">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="/index.html">HOME</a>
@@ -271,21 +271,22 @@
 
           <div class="mb-4 card card-pro box-shadow">
             <div class="card-header">
-              <h2 class="dark-blue">Pro</h2>
+              <h2 v-if="plans" class="dark-blue">{{ getPlanName(plans[2]) }}</h2>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$15</h1>
-              <div class="txt-medium">Confirms in 10 minutes on average</div>
-              <button  v-on:click="pro" type="button" class="btn btn-lg btn-block btn-outline-primary dark-blue dark-blue-border-color">Choose Pro</button>
+              <h1 v-if="plans" class="card-title pricing-card-title">{{ getPlanPrice(plans[2]) }}</h1>
+              <div v-if="plans" class="txt-medium">{{ getPlanTime(plans[2]) }}</div>
+              <button  v-if="plans" v-on:click="pro" type="button" class="btn btn-lg btn-block btn-outline-primary dark-blue dark-blue-border-color">Choose {{ getPlanName(plans[2]) }}</button>
 
             </div>
-              (max 50 files)
+              <span v-if="plans">(max {{ plans[2].maxFiles }} files)</span>
           </div>
 
         </div>
 
         <div class="txt-medium">
-          * Confirmation time is on average 10 minutes after submission, but will vary randomly based on mining activity
+          <p>Submission time range is based on a rolling window submission delay.</p>
+          <p>* Confirmation time is on average 10 minutes after submission, but will vary randomly based on mining activity</p>
         </div>
 
       </div>
@@ -302,7 +303,7 @@
 
         <div class="breadcrumbs">
           <a href="index.html" v-on:click.prevent="backToPrcing">
-            <span class="breadcrumb-arrow"><</span> Back
+            <span class="breadcrumb-arrow">&lt;</span> Back
           </a>
         </div>
         <h4>

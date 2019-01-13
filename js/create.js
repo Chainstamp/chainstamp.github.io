@@ -67,7 +67,7 @@
 	  	card() {
 	  		console.log("card selected");
 	  		app.paymentType="CARD";
-	  		doCard(app.paymentLevel);
+	  		doCard(app.paymentLevel,app.plans);
 	  	},
 
 	  	crypto() {
@@ -82,27 +82,30 @@
 
 		getPlanTime(plan) {
 			var secs=plan.delay/1000;
+			var min=secs;
+			var max=secs*2;
 			secs=secs*1.5;  //because on avg you'll get middle. Then have to wait for end of next full interal.
 			if(secs>86000) {
 				return "Submitted once a day."; //assumes we won't go to a greater delay.
 			} else if(secs>3600) {
-				return "Confirms in "+ round(secs/3600,0)+" hours on average."
+				return "Submitted in "+ round(min/3600,1)+"-"+round(max/3600,1)+" hours."
 			} else if(secs>0) {
-				return "Confirms in "+ (round(secs/60,0)+10)+" minutes on average." //70min is allowed.
+				return "Submitted in "+ (round(secs/60,0)+10)+" minutes." //70min is allowed.
 			} else {
-				return "Confirms in 10 minutes on average";
+				return "Submitted immediately. *Confirms in 10 minutes on average.";
 			}
 		},
 
 		getPlanPrice(plan) {
 			var price=round(plan.price/100,2);
-			if((price*100)%100 ==0 ) {
+			if(price>0 && (price*100)%100 ==0 ) {
 				price=round(price,0);
+				return "$"+price;
 			}
 			if(price==0) {
 				return "FREE";
 			} else {
-				return "$"+price;
+				return "$"+price.toFixed(2);
 			}
 
 		}
@@ -235,9 +238,9 @@
 
 		  paymentUSD: function() {
 		  	if(this.paymentLevel=="SIMPLE") {
-		  		return "3.00";
+		  		return round(this.plans[1].price/100,2).toFixed(2);
 		  	} else if(this.paymentLevel=="PRO") {
-		  		return "15.00";
+		  		return round(this.plans[2].price/100,2).toFixed(2);
 		  	}
 		  },
 
@@ -561,7 +564,7 @@
 				app.plans=data.plans;
 			}
 			if(error) {
-				showError("Error retrieving plan information");
+				showError("Error retrieving plan information","Please try reloading the page.");
 			}
 		});
 	}
@@ -590,12 +593,12 @@
 	  }
 	});
 
-	function doCard(level) {
+	function doCard(level,plans) {
 		var amt;
 		if(level=="SIMPLE") {
-			amt=300;
+			amt=plans[1].price;
 		} else if(level=="PRO") {
-			amt=1500;
+			amt=plans[2].price;
 		}
 		stripeHandler.open({
 			name: 'Chainstamp.io',
