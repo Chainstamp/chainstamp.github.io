@@ -23,7 +23,8 @@
 	    showError:false,
 	    elapsedStart:null,
 	    elapsedNow:null,
-	    elapsedRun:false
+		elapsedRun:false,
+		plans:null
 
 	  },
 
@@ -66,14 +67,48 @@
 	  	card() {
 	  		console.log("card selected");
 	  		app.paymentType="CARD";
-	  		doCard(app.paymentLevel);
+	  		doCard(app.paymentLevel,app.plans);
 	  	},
 
 	  	crypto() {
 	  		console.log("crypto selected");
 	  		app.paymentType="CRYPTO";
 	  		doStampCrypto(app.paymentLevel);
-	  	}
+		  },
+
+		getPlanName(plan) {
+			return plan.name.charAt(0).toUpperCase() + plan.name.slice(1).toLowerCase();
+		},
+
+		getPlanTime(plan) {
+			var secs=plan.delay/1000;
+			var min=secs;
+			var max=secs*2;
+			secs=secs*1.5;  //because on avg you'll get middle. Then have to wait for end of next full interal.
+			if(secs>86000) {
+				return "Submitted once a day."; //assumes we won't go to a greater delay.
+			} else if(secs>3600) {
+				return "Submitted in "+ round(min/3600,1)+"-"+round(max/3600,1)+" hours."
+			} else if(secs>0) {
+				return "Submitted in "+ (round(secs/60,0)+10)+" minutes." //70min is allowed.
+			} else {
+				return "Submitted immediately. *Confirms in 10 minutes on average.";
+			}
+		},
+
+		getPlanPrice(plan) {
+			var price=round(plan.price/100,2);
+			if(price>0 && (price*100)%100 ==0 ) {
+				price=round(price,0);
+				return "$"+price;
+			}
+			if(price==0) {
+				return "FREE";
+			} else {
+				return "$"+price.toFixed(2);
+			}
+
+		}
 
 	  },
 	  	computed: {
@@ -203,9 +238,9 @@
 
 		  paymentUSD: function() {
 		  	if(this.paymentLevel=="SIMPLE") {
-		  		return "3.00";
+		  		return round(this.plans[1].price/100,2).toFixed(2);
 		  	} else if(this.paymentLevel=="PRO") {
-		  		return "15.00";
+		  		return round(this.plans[2].price/100,2).toFixed(2);
 		  	}
 		  },
 
@@ -248,7 +283,9 @@
 		  	vm.$on("newFiles", length =>{ 
 		  		console.log("filesFound received "+length);
 		  		vm.filesAdded=length;
-		  	});
+			  });
+			
+			getPlans();
 		  }
 	});
 
@@ -521,6 +558,17 @@
 		}
 	}
 
+	function getPlans() {
+		chainstamp.getPlans(function(data,error) {
+			if(data) {
+				app.plans=data.plans;
+			}
+			if(error) {
+				showError("Error retrieving plan information","Please try reloading the page.");
+			}
+		});
+	}
+
 
 	function append(message) {
 		console.log(message);
@@ -545,12 +593,12 @@
 	  }
 	});
 
-	function doCard(level) {
+	function doCard(level,plans) {
 		var amt;
 		if(level=="SIMPLE") {
-			amt=300;
+			amt=plans[1].price;
 		} else if(level=="PRO") {
-			amt=1500;
+			amt=plans[2].price;
 		}
 		stripeHandler.open({
 			name: 'Chainstamp.io',

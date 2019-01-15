@@ -19,6 +19,7 @@ function Chainstamp() {
 	if(dev) {
 		this.debug=true;
 		this.host="https://devapi.chainstamp.io:8443";
+		//this.host="https://localhost:8443";
 		this.explorerTx="https://testnet.blockchain.info/tx";
 		this.explorerBlock="https://testnet.blockchain.info/block";
 		this.testMode=true;
@@ -160,6 +161,17 @@ function Chainstamp() {
 				debug("got error "+JSON.stringify(error));
 				callback(null, new ChainstampError(error.title,error.message));
 			});
+	}
+
+	this.getPlans = function(callback) {
+		api("GET","/plans",null, function(data) {
+			debug("got result "+data);
+			if(callback) callback(data);
+		},
+		function(error) {
+			debug("got error calling /plans "+JSON.stringify(error));
+			callback(null, new ChainstampError(error.title,error.message));
+		});
 	}
 
 
