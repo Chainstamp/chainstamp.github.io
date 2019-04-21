@@ -33,7 +33,8 @@ color: #95989A !important;
 }
 
 
-
+/* eliminate white gutter on some mobile devices */
+html, body { overflow-x: hidden; }
 
 
 /*  LINKS, BUTTONS AND ELEMENTS*/
@@ -89,6 +90,7 @@ color: #95989A !important;
   text-decoration: none;
   color: #000;
 }
+
 
 .btn-green{
 
@@ -553,8 +555,8 @@ border-bottom-color: #707070;
 height: 75px;
 }
 #pricing .card-body{
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom: 25px;
   height: 290px;
 }
@@ -1443,10 +1445,12 @@ font-size: 18px;
     flex: 1 0 30%;
   }
 
+/*
   #pricing .card-body {
     padding-left: 40px;
     padding-right: 40px;
   }
+  */
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
@@ -1486,5 +1490,13 @@ font-size: 18px;
   #pricing .card-deck .card{
 
   }
+
+  @media only screen and (max-width:400px) {
+    .btn-yellow-small {
+      min-width: 280px;
+    }
+  }
+
+
 
 }
